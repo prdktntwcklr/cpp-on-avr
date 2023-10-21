@@ -1,11 +1,17 @@
-#ifndef SUPERLOOP_H
-#define SUPERLOOP_H
+#pragma once
+
+#include "stdint.h"
 
 class Superloop
 {
   public:
-    void init();
-    bool run();
-};
+    Superloop() = default; // default constructor
 
-#endif // SUPERLOOP_H
+    Superloop(const Superloop&) = delete; // no copies
+    Superloop& operator=(const Superloop&) = delete; // no self-assignments
+    void init() const;
+    bool run();
+  
+  private:
+    uint16_t deadline {0};
+};

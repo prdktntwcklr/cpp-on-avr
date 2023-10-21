@@ -1,10 +1,9 @@
-/* main.c */
-
 #include "main.h"
 #include "low_power.h"
 #include "superloop.h"
 
-Superloop superloop{};
+static Superloop superloop {};
+static LowPower lowpower {};
 
 #ifndef TEST
 int main()
@@ -13,11 +12,11 @@ int testable_main()
 #endif
 {
     superloop.init();
-    low_power_init();
+    lowpower.init();
 
     while(superloop.run())
     {
-        low_power_enter();
+        lowpower.enter();
     }
 
     /* this line is never reached */
