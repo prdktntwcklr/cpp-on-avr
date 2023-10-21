@@ -1,9 +1,12 @@
-/* low_power.h */
+#pragma once
 
-#ifndef LOW_POWER_H
-#define LOW_POWER_H
+class LowPower
+{
+  public:
+    LowPower() = default; // default constructor
+    LowPower(const LowPower&) = delete; // no copies
+    LowPower& operator=(const LowPower&) = delete; // no self-assignments
 
-void low_power_init();
-void low_power_enter();
-
-#endif // LOW_POWER_H
+    void init() const;
+    void enter() const;
+};

@@ -1,5 +1,3 @@
-/* led.c */
-
 #include "led.h"
 
 #ifndef TEST
@@ -15,17 +13,17 @@
 /**
  * @brief Initializes the LED and defaults to off.
  */
-extern void led_init()
+void Led::init() const
 {
     /* configure LED pin as output */
     LED_DDR |= (1 << LED_PIN);
-    led_turn_off();
+    this->turn_off();
 }
 
 /**
  * @brief Turns the LED on.
  */
-extern void led_turn_on()
+void Led::turn_on() const
 {
     LED_PORT |= (1 << LED_PIN);
 }
@@ -33,7 +31,7 @@ extern void led_turn_on()
 /**
  * @brief Turns the LED off.
  */
-extern void led_turn_off()
+void Led::turn_off() const
 {
     LED_PORT &= ~(1 << LED_PIN);
 }
@@ -41,7 +39,7 @@ extern void led_turn_off()
 /**
  * @brief Toggles the LED.
  */
-extern void led_toggle()
+void Led::toggle() const
 {
     LED_PORT ^= (1 << LED_PIN);
 }
@@ -49,7 +47,7 @@ extern void led_toggle()
 /**
  * @brief Returns TRUE if the LED is on.
  */
-extern bool led_is_on()
+bool Led::is_on() const
 {
     return ((LED_PORT) & (1 << LED_PIN));
 }
@@ -57,7 +55,7 @@ extern bool led_is_on()
 /**
  * @brief Returns TRUE if the LED is off.
  */
-extern bool led_is_off()
+bool Led::is_off() const
 {
-    return !(led_is_on());
+    return !(this->is_on());
 }

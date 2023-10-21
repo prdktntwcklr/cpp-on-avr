@@ -1,5 +1,3 @@
-/* timer.c */
-
 #include "timer.h"
 
 #ifndef TEST
@@ -11,50 +9,67 @@
 #define sei() (void)(0);
 #endif
 
-#define TIMER_FULL_VAL   (255U)
-#define TIMER_TICKS_VAL  (156U)
-#define TIMER_RELOAD_VAL ((TIMER_FULL_VAL) - (TIMER_TICKS_VAL))
+static constexpr uint8_t TIMER_FULL_VAL {255U};
+static constexpr uint8_t TIMER_TICKS_VAL {156U};
+static constexpr uint8_t TIMER_RELOAD_VAL {TIMER_FULL_VAL - TIMER_TICKS_VAL};
 
-static volatile uint16_t time_stamp = 0U;
+static volatile uint16_t time_stamp {0};
 
 /**
  * @brief Initializes the timer peripheral.
  */
-extern void timer_init()
+void Timer::init() const
 {
-    cli();                    /* disable global interrupts */
-    TIMSK0 |= (1 << TOIE0);   /* enable Timer/Counter0 overflow interrupt */
-    sei();                    /* enable global interrupts */
-    TCNT0 = TIMER_RELOAD_VAL; /* load Timer/Counter0 register */
-    TCCR0B |= ((1 << CS01) |
-               (1 << CS00)); /* set clock to clk/64, this starts the timer */
+    /* disable global interrupts */
+    cli();                    
+
+    /* enable Timer/Counter0 overflow interrupt */
+    TIMSK0 |= (1 << TOIE0); 
+
+    /* enable global interrupts */
+    sei();                    
+    
+    /* load Timer/Counter0 register */
+    TCNT0 = TIMER_RELOAD_VAL;
+    
+    /* set clock to clk/64, this starts the timer */
+    TCCR0B |= ((1 << CS01) | (1 << CS00));
 }
 
 /**
  * @brief Sets the time_stamp to a specific value.
  */
-extern void timer_set_stamp(uint16_t stamp)
+void Timer::set_stamp(uint16_t stamp)
 {
-    TIMSK0 &= ~(1 << TOIE0); /* disable Timer/Counter0 overflow interrupt */
+    /* disable Timer/Counter0 overflow interrupt */
+    TIMSK0 &= ~(1 << TOIE0);
+
     time_stamp = stamp;
-    TIMSK0 |= (1 << TOIE0); /* enable Timer/Counter0 overflow interrupt */
+
+    /* enable Timer/Counter0 overflow interrupt */
+    TIMSK0 |= (1 << TOIE0);
 }
 
 /**
  * @brief Returns the current time_stamp value.
  */
-extern uint16_t timer_get_stamp()
+uint16_t Timer::get_stamp() const
 {
-    TIMSK0 &= ~(1 << TOIE0); /* disable Timer/Counter0 overflow interrupt */
-    uint16_t ret_val = time_stamp;
-    TIMSK0 |= (1 << TOIE0); /* enable Timer/Counter0 overflow interrupt */
-    return ret_val;
+    /* disable Timer/Counter0 overflow interrupt */
+    TIMSK0 &= ~(1 << TOIE0);
+
+    uint16_t curr_time {time_stamp};
+
+    /* enable Timer/Counter0 overflow interrupt */
+    TIMSK0 |= (1 << TOIE0); 
+
+    return curr_time;
 }
 
 /**
  * @brief Returns TRUE if the deadline has been reached or passed.
  */
-extern bool timer_deadline_reached(uint16_t deadline)
+bool Timer::deadline_reached(uint16_t deadline) const
 {
     return ((int16_t)(time_stamp - deadline) >= 0);
 }
@@ -65,10 +80,11 @@ extern bool timer_deadline_reached(uint16_t deadline)
 #ifndef TEST
 ISR(TIMER0_OVF_vect)
 #else
-void testable_isr_timer0_ovf_vect()
+void Timer::testable_isr_timer0_ovf_vect()
 #endif
 {
     time_stamp += 10;
 
-    TCNT0 = TIMER_RELOAD_VAL; /* reload Timer/Counter0 register */
+    /* reload Timer/Counter0 register */
+    TCNT0 = TIMER_RELOAD_VAL;
 }

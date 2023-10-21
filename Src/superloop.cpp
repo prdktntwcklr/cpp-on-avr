@@ -4,6 +4,9 @@
 
 static constexpr uint16_t TOGGLE_INTERVAL_IN_MS {1000U};
 
+static Led led {};
+static Timer timer {};
+
 /**
  * @brief Initializes the relevant peripherals for the superloop.
  *
@@ -11,10 +14,10 @@ static constexpr uint16_t TOGGLE_INTERVAL_IN_MS {1000U};
           the constructor:
           https://www.reddit.com/r/embedded/comments/q3orsi/embedded_c_question_regarding_constructors/?rdt=45370
  */
-void Superloop::init()
+void Superloop::init() const
 {
-    led_init();
-    timer_init();
+    led.init();
+    timer.init();
 }
 
 /**
@@ -22,13 +25,11 @@ void Superloop::init()
  */
 bool Superloop::run()
 {
-    static uint16_t deadline = 0;
-
-    if(timer_deadline_reached(deadline))
+    if(timer.deadline_reached(deadline))
     {
         deadline += TOGGLE_INTERVAL_IN_MS;
 
-        led_toggle();
+        led.toggle();
     }
 
     return true;
