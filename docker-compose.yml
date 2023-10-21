@@ -1,0 +1,12 @@
+services:
+  build-image:
+    image: cpp-on-avr
+    command: bash -c "echo build-image completed."
+    build: .
+  build-hex:
+    image: cpp-on-avr
+    command: bash -c "mkdir -p Build && cd Build && cmake .. && cmake --build ."
+    depends_on:
+    - build-image
+    volumes:
+    - ./:/app

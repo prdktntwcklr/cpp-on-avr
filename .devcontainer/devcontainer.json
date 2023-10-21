@@ -1,0 +1,23 @@
+{
+    "name": "C++ on AVR",
+    "dockerFile": "../Dockerfile",
+    "runArgs": [
+        "--security-opt",
+        "label=disable"
+    ],
+    "containerEnv": {
+        "WORKSPACE_DIR": "${containerWorkspaceFolder}",
+        "PROMPT_COMMAND": "history -a"
+    },
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-vscode.cpptools"
+            ],
+            "settings": {
+                "terminal.integrated.defaultProfile.linux": "bash"
+            }
+        }
+    },
+    "postStartCommand": "pre-commit --version && pre-commit install"
+}

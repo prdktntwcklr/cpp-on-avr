@@ -1,0 +1,13 @@
+avr-libc
+avrdude
+binutils-avr
+clang-format
+cmake
+gcc
+gcc-avr
+git
+make
+nano
+python3
+python3-pip
+ruby
