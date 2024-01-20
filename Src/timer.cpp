@@ -1,4 +1,4 @@
-#include "timer.h"
+#include "timer.hpp"
 
 #ifndef TEST
 #include "avr/io.h"
@@ -9,11 +9,11 @@
 #define sei() (void)(0);
 #endif
 
-static constexpr uint8_t TIMER_FULL_VAL {255U};
-static constexpr uint8_t TIMER_TICKS_VAL {156U};
-static constexpr uint8_t TIMER_RELOAD_VAL {TIMER_FULL_VAL - TIMER_TICKS_VAL};
+static constexpr uint8_t TIMER_FULL_VAL{255U};
+static constexpr uint8_t TIMER_TICKS_VAL{156U};
+static constexpr uint8_t TIMER_RELOAD_VAL{TIMER_FULL_VAL - TIMER_TICKS_VAL};
 
-static volatile uint16_t time_stamp {0};
+static volatile uint16_t time_stamp{0};
 
 /**
  * @brief Initializes the timer peripheral.
@@ -21,17 +21,17 @@ static volatile uint16_t time_stamp {0};
 void Timer::init() const
 {
     /* disable global interrupts */
-    cli();                    
+    cli();
 
     /* enable Timer/Counter0 overflow interrupt */
-    TIMSK0 |= (1 << TOIE0); 
+    TIMSK0 |= (1 << TOIE0);
 
     /* enable global interrupts */
-    sei();                    
-    
+    sei();
+
     /* load Timer/Counter0 register */
     TCNT0 = TIMER_RELOAD_VAL;
-    
+
     /* set clock to clk/64, this starts the timer */
     TCCR0B |= ((1 << CS01) | (1 << CS00));
 }
@@ -58,10 +58,10 @@ uint16_t Timer::get_stamp() const
     /* disable Timer/Counter0 overflow interrupt */
     TIMSK0 &= ~(1 << TOIE0);
 
-    uint16_t curr_time {time_stamp};
+    uint16_t curr_time{time_stamp};
 
     /* enable Timer/Counter0 overflow interrupt */
-    TIMSK0 |= (1 << TOIE0); 
+    TIMSK0 |= (1 << TOIE0);
 
     return curr_time;
 }

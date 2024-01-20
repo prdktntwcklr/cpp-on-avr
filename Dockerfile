@@ -14,7 +14,6 @@ RUN ln -snf /usr/share/zoneinfo/$CONTAINER_TIMEZONE /etc/localtime && \
 RUN apt-get update && \
     xargs -a packages.txt apt-get install -y && \
     pip install --no-cache-dir pre-commit && \
-    gem install ceedling && \
     apt-get autoremove -y && \
     apt-get clean
 

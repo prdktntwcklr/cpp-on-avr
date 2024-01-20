@@ -1,11 +1,11 @@
-#include "superloop.h"
-#include "led.h"
-#include "timer.h"
+#include "superloop.hpp"
+#include "led.hpp"
+#include "timer.hpp"
 
-static constexpr uint16_t TOGGLE_INTERVAL_IN_MS {1000U};
+static constexpr uint16_t TOGGLE_INTERVAL_IN_MS{1000U};
 
-static Led led {};
-static Timer timer {};
+static Led led{};
+static Timer timer{};
 
 /**
  * @brief Initializes the relevant peripherals for the superloop.

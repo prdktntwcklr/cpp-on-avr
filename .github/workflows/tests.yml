@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-hex:
+  run-tests:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
@@ -24,4 +24,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: main-${{ steps.vars.outputs.sha_short }}
-          path: Build/Bin/App.hex
+          path: Build/Avr/Bin/app.hex
+          if-no-files-found: error
+      - name: run unit tests
+        run:  docker compose run --rm unit-tests
