@@ -1,4 +1,4 @@
-#include "low_power.h"
+#include "low_power.hpp"
 
 #ifndef TEST
 

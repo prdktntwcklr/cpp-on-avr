@@ -1,6 +1,7 @@
 avr-libc
 avrdude
 binutils-avr
+build-essential
 clang-format
 cmake
 gcc
@@ -10,4 +11,3 @@ make
 nano
 python3
 python3-pip
-ruby

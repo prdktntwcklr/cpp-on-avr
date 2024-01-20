@@ -1,9 +1,9 @@
-#include "main.h"
-#include "low_power.h"
-#include "superloop.h"
+#include "main.hpp"
+#include "low_power.hpp"
+#include "superloop.hpp"
 
-static Superloop superloop {};
-static LowPower lowpower {};
+static Superloop superloop{};
+static LowPower lowpower{};
 
 #ifndef TEST
 int main()

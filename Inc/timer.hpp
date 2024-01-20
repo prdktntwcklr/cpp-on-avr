@@ -5,9 +5,9 @@
 class Timer
 {
   public:
-    Timer() = default; // default constructor
-    Timer(const Timer&) = delete; // no copies
-    Timer& operator=(const Timer&) = delete; // no self-assignments
+    Timer() = default;                        // default constructor
+    Timer(const Timer &) = delete;            // no copies
+    Timer &operator=(const Timer &) = delete; // no self-assignments
 
     void init() const;
     void set_stamp(uint16_t stamp);
