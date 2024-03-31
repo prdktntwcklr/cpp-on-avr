@@ -1,10 +1,11 @@
 #include "superloop.hpp"
 #include "led.hpp"
+#include "pinmap.hpp"
 #include "timer.hpp"
 
-static constexpr uint16_t TOGGLE_INTERVAL_IN_MS{1000U};
+static constexpr uint16_t TOGGLE_INTERVAL_IN_MS{1000};
 
-static Led led{};
+static Led led{PinMap::led_pin, PinMap::led_ddr, PinMap::led_port};
 static Timer timer{};
 
 /**
