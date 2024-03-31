@@ -1,14 +1,12 @@
 #include "led.hpp"
 
-#ifndef TEST
-#include "avr/io.h"
-#else
-#include "testable_mcu_registers.h"
-#endif
-
-#define LED_DDR  (DDRD)
-#define LED_PORT (PORTD)
-#define LED_PIN  (3U)
+/**
+ * @brief Constructor definition.
+ */
+Led::Led(uint8_t led_pin, volatile uint8_t *led_ddr, volatile uint8_t *led_port)
+    : pin(led_pin), ddr(led_ddr), port(led_port)
+{
+}
 
 /**
  * @brief Initializes the LED and defaults to off.
@@ -16,7 +14,7 @@
 void Led::init() const
 {
     /* configure LED pin as output */
-    LED_DDR |= (1 << LED_PIN);
+    *ddr |= (1 << pin);
     this->turn_off();
 }
 
@@ -25,7 +23,7 @@ void Led::init() const
  */
 void Led::turn_on() const
 {
-    LED_PORT |= (1 << LED_PIN);
+    *port |= (1 << pin);
 }
 
 /**
@@ -33,7 +31,7 @@ void Led::turn_on() const
  */
 void Led::turn_off() const
 {
-    LED_PORT &= ~(1 << LED_PIN);
+    *port &= ~(1 << pin);
 }
 
 /**
@@ -41,7 +39,7 @@ void Led::turn_off() const
  */
 void Led::toggle() const
 {
-    LED_PORT ^= (1 << LED_PIN);
+    *port ^= (1 << pin);
 }
 
 /**
@@ -49,7 +47,7 @@ void Led::toggle() const
  */
 bool Led::is_on() const
 {
-    return ((LED_PORT) & (1 << LED_PIN));
+    return ((*port) & (1 << pin));
 }
 
 /**
