@@ -3,10 +3,16 @@
 #include "pinmap.hpp"
 #include "timer.hpp"
 
-static constexpr uint16_t TOGGLE_INTERVAL_IN_MS{1000};
+namespace
+{
+constexpr uint16_t TOGGLE_INTERVAL_IN_MS{UINT16_C(1'000)};
 
-static Led led{PinMap::led_pin, PinMap::led_ddr, PinMap::led_port};
-static Timer timer{};
+Led led{PinMap::led_pin, PinMap::led_ddr, PinMap::led_port};
+Timer timer{};
+} // namespace
+
+static_assert(TOGGLE_INTERVAL_IN_MS > 0,
+              "toggle interval must be greater than 0!");
 
 /**
  * @brief Initializes the relevant peripherals for the superloop.

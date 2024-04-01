@@ -2,6 +2,11 @@
 
 ## Getting started
 
+The best way to get started is to use the provided `Dockerfile` that comes with
+all required dependencies pre-installed.
+
+### Building the project
+
 To build the project for the target hardware, you have to supply the toolchain
 file as follows:
 
@@ -15,9 +20,9 @@ Then, build the project:
 cmake --build Build/Avr --target app size hex
 ```
 
-## Flashing firmware
+### Flashing firmware
 
-First, erase the chip:
+These commands need to be run outside of `Docker`. First, erase the chip:
 
 ```bash
 avrdude -p m168 -P COM6 -c avrispv2 -e

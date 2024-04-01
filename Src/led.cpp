@@ -3,57 +3,63 @@
 /**
  * @brief Constructor definition.
  */
-Led::Led(uint8_t led_pin, volatile uint8_t *led_ddr, volatile uint8_t *led_port)
-    : pin(led_pin), ddr(led_ddr), port(led_port)
+Led::Led(pin_type pin, ddr_type *ddr, port_type *port)
+    : pin(pin), ddr(ddr), port(port), led_on(false)
 {
 }
 
 /**
  * @brief Initializes the LED and defaults to off.
  */
-void Led::init() const
+void Led::init()
 {
-    /* configure LED pin as output */
+    // turn off LED and configure pin as output
+    turn_off();
     *ddr |= (1 << pin);
-    this->turn_off();
 }
 
 /**
  * @brief Turns the LED on.
  */
-void Led::turn_on() const
+void Led::turn_on()
 {
     *port |= (1 << pin);
+
+    led_on = true;
 }
 
 /**
  * @brief Turns the LED off.
  */
-void Led::turn_off() const
+void Led::turn_off()
 {
     *port &= ~(1 << pin);
+
+    led_on = false;
 }
 
 /**
  * @brief Toggles the LED.
  */
-void Led::toggle() const
+void Led::toggle()
 {
     *port ^= (1 << pin);
+
+    led_on = (!led_on);
 }
 
 /**
- * @brief Returns TRUE if the LED is on.
+ * @brief Returns true if the LED is on.
  */
 bool Led::is_on() const
 {
-    return ((*port) & (1 << pin));
+    return led_on;
 }
 
 /**
- * @brief Returns TRUE if the LED is off.
+ * @brief Returns true if the LED is off.
  */
 bool Led::is_off() const
 {
-    return !(this->is_on());
+    return !(is_on());
 }
