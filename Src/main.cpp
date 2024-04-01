@@ -2,8 +2,11 @@
 #include "low_power.hpp"
 #include "superloop.hpp"
 
-static Superloop superloop{};
-static LowPower lowpower{};
+namespace
+{
+Superloop superloop{};
+LowPower lowpower{};
+} // namespace
 
 #ifndef TEST
 int main()
@@ -19,6 +22,6 @@ int testable_main()
         lowpower.enter();
     }
 
-    /* this line is never reached */
+    // this line is never reached
     return 0;
 }

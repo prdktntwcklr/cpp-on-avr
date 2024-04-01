@@ -33,7 +33,7 @@ void LowPower::enter() const
 {
     cli();
 
-    if(true) /* possible to add condition here */
+    if(true) // possible to add condition here
     {
         sleep_enable();
         sei();
