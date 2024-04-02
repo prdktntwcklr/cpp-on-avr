@@ -1,5 +1,7 @@
 # C++ on AVR
 
+C++ code on resource-constrained microcontrollers.
+
 ## Getting started
 
 The best way to get started is to use the provided `Dockerfile` that comes with

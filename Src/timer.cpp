@@ -20,8 +20,10 @@ constexpr uint8_t TIMER_FULL_VAL{UINT8_C(255U)};
 constexpr uint8_t TIMER_TICKS_VAL{UINT8_C(156U)};
 constexpr uint8_t TIMER_RELOAD_VAL{TIMER_FULL_VAL - TIMER_TICKS_VAL};
 
-volatile uint16_t time_stamp{UINT8_C(0)};
 } // namespace
+
+// initialize static member variable
+volatile uint16_t Timer::time_stamp{UINT8_C(0)};
 
 /**
  * @brief Initializes the timer peripheral.
@@ -66,7 +68,8 @@ uint16_t Timer::get_stamp() const
     // disable Timer/Counter0 overflow interrupt
     TIMSK0 &= ~(1 << TOIE0);
 
-    uint16_t curr_time{time_stamp};
+    // store current time stamp
+    auto curr_time = uint16_t{time_stamp};
 
     // enable Timer/Counter0 overflow interrupt
     TIMSK0 |= (1 << TOIE0);
@@ -83,7 +86,18 @@ bool Timer::deadline_reached(uint16_t deadline) const
 }
 
 /**
- * @brief Timer/Counter0 Overflow Interrupt
+ * @brief Timer/Counter0 Overflow Interrupt Implementation
+ */
+void timer_interrupt()
+{
+    Timer::time_stamp += 10;
+
+    // reload Timer/Counter0 register
+    TCNT0 = TIMER_RELOAD_VAL;
+}
+
+/**
+ * @brief Timer/Counter0 Overflow Interrupt Wrapper
  */
 #ifndef TEST
 ISR(TIMER0_OVF_vect)
@@ -91,8 +105,5 @@ ISR(TIMER0_OVF_vect)
 void Timer::testable_isr_timer0_ovf_vect()
 #endif
 {
-    time_stamp += 10;
-
-    // reload Timer/Counter0 register
-    TCNT0 = TIMER_RELOAD_VAL;
+    timer_interrupt();
 }
