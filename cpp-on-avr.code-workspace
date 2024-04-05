@@ -6,19 +6,6 @@
     ],
     "settings": {
         "files.associations": {
-        },
-        "cSpell.words": [
-            "Atmel",
-            "AVRDUDE",
-            "binutils",
-            "Ceedling",
-            "cmock",
-            "Dockerized",
-            "Grenning",
-            "libc",
-            "microcontroller",
-            "PDIP",
-            "Pololu"
-        ]
+        }
     }
 }
