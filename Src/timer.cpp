@@ -7,8 +7,6 @@
 
 #else
 
-#include "testable_mcu_registers.h"
-
 #define cli() (void)(0);
 #define sei() (void)(0);
 
@@ -23,7 +21,7 @@ constexpr uint8_t TIMER_RELOAD_VAL{TIMER_FULL_VAL - TIMER_TICKS_VAL};
 } // namespace
 
 // initialize static member variable
-volatile uint16_t Timer::time_stamp{UINT8_C(0)};
+volatile uint16_t Timer::time_stamp{UINT16_C(0)};
 
 /**
  * @brief Initializes the timer peripheral.

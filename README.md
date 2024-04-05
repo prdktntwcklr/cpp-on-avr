@@ -1,6 +1,6 @@
 # C++ on AVR
 
-C++ code on resource-constrained microcontrollers.
+C++ code for resource-constrained microcontrollers.
 
 ## Getting started
 

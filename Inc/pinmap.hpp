@@ -4,8 +4,6 @@
 
 #ifndef TEST
 #include "avr/io.h"
-#else
-#include "testable_mcu_registers.h"
 #endif
 
 namespace PinMap
