@@ -1,17 +1,17 @@
 #pragma once
 
+#include "utils.hpp"
+
 #include "stdint.h"
 
-class Superloop
+class Superloop : private Noncopyable
 {
   public:
-    Superloop() = default;                            // default constructor
-    Superloop(const Superloop &) = delete;            // no copies
-    Superloop &operator=(const Superloop &) = delete; // no self-assignments
+    Superloop();
 
     void init() const;
     bool run();
 
   private:
-    uint16_t deadline{0};
+    uint16_t deadline;
 };

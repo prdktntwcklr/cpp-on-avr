@@ -15,6 +15,11 @@ static_assert(TOGGLE_INTERVAL_IN_MS > 0,
               "toggle interval must be greater than 0!");
 
 /**
+ * @brief Constructor definition.
+ */
+Superloop::Superloop() : deadline(0) {}
+
+/**
  * @brief Initializes the relevant peripherals for the superloop.
  *
  * @note  See the following for a discussion why this should not be done inside

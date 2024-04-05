@@ -1,18 +1,18 @@
 #pragma once
 
+#include "utils.hpp"
+
 #include "stdint.h"
 
-class Led
+class Led : private Noncopyable
 {
   public:
     using pin_type = uint8_t;
     using ddr_type = volatile uint8_t;
     using port_type = volatile uint8_t;
 
-    Led(pin_type pin, ddr_type *ddr,
-        port_type *port);                 // constructor
-    Led(const Led &) = delete;            // no copies
-    Led &operator=(const Led &) = delete; // no self-assignments
+    explicit Led(pin_type pin, ddr_type *ddr,
+                 port_type *port); // constructor
 
     void init();
     void turn_on();

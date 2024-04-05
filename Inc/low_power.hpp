@@ -1,11 +1,11 @@
 #pragma once
 
-class LowPower
+#include "utils.hpp"
+
+class LowPower : private Noncopyable
 {
   public:
-    LowPower() = default;                           // default constructor
-    LowPower(const LowPower &) = delete;            // no copies
-    LowPower &operator=(const LowPower &) = delete; // no self-assignments
+    LowPower() = default; // default constructor
 
     void init() const;
     void enter() const;
