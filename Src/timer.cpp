@@ -7,6 +7,8 @@
 
 #else
 
+#include "testable_mcu_registers.hpp"
+
 #define cli() (void)(0);
 #define sei() (void)(0);
 
@@ -14,14 +16,14 @@
 
 namespace
 {
-constexpr uint8_t TIMER_FULL_VAL{UINT8_C(255U)};
-constexpr uint8_t TIMER_TICKS_VAL{UINT8_C(156U)};
-constexpr uint8_t TIMER_RELOAD_VAL{TIMER_FULL_VAL - TIMER_TICKS_VAL};
-
+constexpr auto TIMER_FULL_VAL = uint8_t{255U};
+constexpr auto TIMER_TICKS_VAL = uint8_t{156U};
+constexpr auto TIMER_RELOAD_VAL = uint8_t{TIMER_FULL_VAL - TIMER_TICKS_VAL};
+constexpr auto TIMESTAMP_INCREMENT = uint16_t{10};
 } // namespace
 
 // initialize static member variable
-volatile uint16_t Timer::time_stamp{UINT16_C(0)};
+volatile uint16_t Timer::time_stamp = uint16_t{0};
 
 /**
  * @brief Initializes the timer peripheral.
@@ -32,7 +34,7 @@ void Timer::init() const
     cli();
 
     // enable Timer/Counter0 overflow interrupt
-    TIMSK0 |= (1 << TOIE0);
+    TIMSK0 |= (1U << TOIE0);
 
     // enable global interrupts
     sei();
@@ -41,7 +43,7 @@ void Timer::init() const
     TCNT0 = TIMER_RELOAD_VAL;
 
     // set clock to clk/64, this starts the timer
-    TCCR0B |= ((1 << CS01) | (1 << CS00));
+    TCCR0B |= ((1U << CS01) | (1U << CS00));
 }
 
 /**
@@ -50,12 +52,12 @@ void Timer::init() const
 void Timer::set_stamp(uint16_t stamp)
 {
     // disable Timer/Counter0 overflow interrupt
-    TIMSK0 &= ~(1 << TOIE0);
+    TIMSK0 &= ~(1U << TOIE0);
 
     time_stamp = stamp;
 
     // enable Timer/Counter0 overflow interrupt
-    TIMSK0 |= (1 << TOIE0);
+    TIMSK0 |= (1U << TOIE0);
 }
 
 /**
@@ -64,13 +66,13 @@ void Timer::set_stamp(uint16_t stamp)
 uint16_t Timer::get_stamp() const
 {
     // disable Timer/Counter0 overflow interrupt
-    TIMSK0 &= ~(1 << TOIE0);
+    TIMSK0 &= ~(1U << TOIE0);
 
     // store current time stamp
     auto curr_time = uint16_t{time_stamp};
 
     // enable Timer/Counter0 overflow interrupt
-    TIMSK0 |= (1 << TOIE0);
+    TIMSK0 |= (1U << TOIE0);
 
     return curr_time;
 }
@@ -88,7 +90,7 @@ bool Timer::deadline_reached(uint16_t deadline) const
  */
 void timer_interrupt()
 {
-    Timer::time_stamp += 10;
+    Timer::time_stamp += TIMESTAMP_INCREMENT;
 
     // reload Timer/Counter0 register
     TCNT0 = TIMER_RELOAD_VAL;

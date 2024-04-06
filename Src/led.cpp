@@ -4,7 +4,7 @@
  * @brief Constructor definition.
  */
 Led::Led(pin_type pin, ddr_type *ddr, port_type *port)
-    : pin(pin), ddr(ddr), port(port), led_on(false)
+    : pin(pin), ddr(ddr), port(port)
 {
 }
 
@@ -15,7 +15,7 @@ void Led::init()
 {
     // turn off LED and configure pin as output
     turn_off();
-    *ddr |= (1 << pin);
+    *ddr |= (1U << pin);
 }
 
 /**
@@ -23,7 +23,7 @@ void Led::init()
  */
 void Led::turn_on()
 {
-    *port |= (1 << pin);
+    *port |= (1U << pin);
 
     led_on = true;
 }
@@ -33,7 +33,7 @@ void Led::turn_on()
  */
 void Led::turn_off()
 {
-    *port &= ~(1 << pin);
+    *port &= ~(1U << pin);
 
     led_on = false;
 }
@@ -43,7 +43,7 @@ void Led::turn_off()
  */
 void Led::toggle()
 {
-    *port ^= (1 << pin);
+    *port ^= (1U << pin);
 
     led_on = (!led_on);
 }

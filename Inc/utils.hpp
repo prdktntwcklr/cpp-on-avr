@@ -3,8 +3,8 @@
 class Noncopyable
 {
   protected:
-    Noncopyable() {}
-    ~Noncopyable() {}
+    Noncopyable() = default;
+    ~Noncopyable() = default;
 
   private:
     Noncopyable(const Noncopyable &) = delete;            // no copies

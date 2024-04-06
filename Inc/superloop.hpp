@@ -1,4 +1,5 @@
-#pragma once
+#ifndef SUPERLOOP_HPP
+#define SUPERLOOP_HPP
 
 #include "utils.hpp"
 
@@ -7,11 +8,13 @@
 class Superloop : private Noncopyable
 {
   public:
-    Superloop();
+    Superloop() = default;
 
     void init() const;
     bool run();
 
   private:
-    uint16_t deadline;
+    uint16_t deadline{0};
 };
+
+#endif // SUPERLOOP_HPP

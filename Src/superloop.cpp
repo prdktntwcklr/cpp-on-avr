@@ -5,7 +5,7 @@
 
 namespace
 {
-constexpr uint16_t TOGGLE_INTERVAL_IN_MS{UINT16_C(1'000)};
+constexpr auto TOGGLE_INTERVAL_IN_MS = uint16_t{1'000};
 
 Led led{PinMap::led_pin, PinMap::led_ddr, PinMap::led_port};
 Timer timer{};
@@ -13,11 +13,6 @@ Timer timer{};
 
 static_assert(TOGGLE_INTERVAL_IN_MS > 0,
               "toggle interval must be greater than 0!");
-
-/**
- * @brief Constructor definition.
- */
-Superloop::Superloop() : deadline(0) {}
 
 /**
  * @brief Initializes the relevant peripherals for the superloop.
