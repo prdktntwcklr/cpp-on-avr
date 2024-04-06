@@ -22,6 +22,9 @@ constexpr auto TIMER_RELOAD_VAL = uint8_t{TIMER_FULL_VAL - TIMER_TICKS_VAL};
 constexpr auto TIMESTAMP_INCREMENT = uint16_t{10};
 } // namespace
 
+static_assert(TIMESTAMP_INCREMENT > 0,
+              "timestamp increment must be greater than 0!");
+
 // initialize static member variable
 volatile uint16_t Timer::time_stamp = uint16_t{0};
 

@@ -13,7 +13,7 @@ RUN ln -snf /usr/share/zoneinfo/$CONTAINER_TIMEZONE /etc/localtime && \
 # update package information and install required packages
 RUN apt-get update && \
     xargs -a packages.txt apt-get install -y && \
-    pip install --no-cache-dir pre-commit && \
+    pip install --no-cache-dir pre-commit codechecker && \
     apt-get autoremove -y && \
     apt-get clean
 

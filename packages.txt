@@ -2,9 +2,11 @@ avr-libc
 avrdude
 binutils-avr
 build-essential
+clang
 clang-format
 clang-tidy
 cmake
+cppcheck
 gcc
 gcc-avr
 git
