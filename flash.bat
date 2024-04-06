@@ -6,4 +6,4 @@ set port=COM6
 avrdude -p m168 -P %port% -c avrispv2 -e
 
 :: Flash new firmware image
-avrdude -p m168 -P %port% -c avrispv2 -U flash:w:Build/Avr/Bin/app.hex
+avrdude -p m168 -P %port% -c avrispv2 -U flash:w:Build/Avr/app.hex

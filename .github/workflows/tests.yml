@@ -24,7 +24,8 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: main-${{ steps.vars.outputs.sha_short }}
-          path: Build/Avr/Bin/app.hex
+          path: Build/Avr/app.hex
           if-no-files-found: error
+          retention-days: 5
       - name: run unit tests
         run:  docker compose run --rm unit-tests

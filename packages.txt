@@ -3,6 +3,7 @@ avrdude
 binutils-avr
 build-essential
 clang-format
+clang-tidy
 cmake
 gcc
 gcc-avr

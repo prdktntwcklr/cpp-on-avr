@@ -25,5 +25,5 @@ class Led : private Noncopyable
     const pin_type pin;    // led pin
     ddr_type *const ddr;   // led data direction register
     port_type *const port; // led port
-    bool led_on;           // led on/off state
+    bool led_on{false};    // led on/off state
 };
