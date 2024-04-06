@@ -8,5 +8,7 @@ class Noncopyable
 
   private:
     Noncopyable(const Noncopyable &) = delete;            // no copies
-    Noncopyable &operator=(const Noncopyable &) = delete; // no self-assignments
+    Noncopyable &operator=(const Noncopyable &) = delete; // no self assignments
+    Noncopyable(Noncopyable &&) = delete;                 // no move constructor
+    Noncopyable &operator=(Noncopyable &&) = delete;      // no move assignment
 };

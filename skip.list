@@ -1,0 +1,4 @@
+# do not analyze google test files
+-*gmock*
+-*gtest*
+-*Tests*
