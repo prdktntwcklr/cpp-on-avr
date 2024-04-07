@@ -7,7 +7,7 @@ namespace
 {
 constexpr auto TOGGLE_INTERVAL_IN_MS = uint16_t{1'000};
 
-Led led{PinMap::led_pin, PinMap::led_ddr, PinMap::led_port};
+Led led{PinMap::led_pin, PinMap::led_ddr(), PinMap::led_port()};
 Timer timer{};
 } // namespace
 

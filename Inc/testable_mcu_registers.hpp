@@ -1,5 +1,4 @@
-#ifndef TESTABLE_MCU_REGISTERS_HPP
-#define TESTABLE_MCU_REGISTERS_HPP
+#pragma once
 
 #include "stdint.h"
 
@@ -20,5 +19,3 @@ uint8_t TCCR0B;
 #define CS02  (2U)
 #define CS01  (1U)
 #define CS00  (0U)
-
-#endif // TESTABLE_MCU_REGISTERS_HPP

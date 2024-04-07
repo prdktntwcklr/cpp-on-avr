@@ -1,5 +1,4 @@
-#ifndef TIMER_HPP
-#define TIMER_HPP
+#pragma once
 
 #include "utils.hpp"
 
@@ -24,5 +23,3 @@ class Timer : private Noncopyable
 
     friend void timer_interrupt();
 };
-
-#endif // TIMER_HPP
