@@ -1,5 +1,4 @@
-#ifndef SUPERLOOP_HPP
-#define SUPERLOOP_HPP
+#pragma once
 
 #include "utils.hpp"
 
@@ -16,5 +15,3 @@ class Superloop : private Noncopyable
   private:
     uint16_t deadline{0};
 };
-
-#endif // SUPERLOOP_HPP

@@ -12,9 +12,13 @@
 
 #endif
 
+// clang-format off
+
 namespace PinMap
 {
-static constexpr auto led_pin = uint8_t{3};
-static volatile constexpr uint8_t *led_ddr{&DDRD};
-static volatile constexpr uint8_t *led_port{&PORTD};
+constexpr auto led_pin = uint8_t{3};
+constexpr volatile uint8_t *led_ddr(){ return &DDRD; }
+constexpr volatile uint8_t *led_port() {return &PORTD; }
 } // namespace PinMap
+
+// clang-format on
